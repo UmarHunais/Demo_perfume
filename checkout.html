@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — Aroma Luxury Perfume</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .checkout-section {
+      padding: 120px 0 80px;
+      min-height: 80vh;
+      background: #fafafa;
+    }
+    .checkout-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 40px;
+      padding: 0 20px;
+    }
+    @media (max-width: 900px) {
+      .checkout-container {
+        grid-template-columns: 1fr;
+      }
+    }
+    .checkout-form-card {
+      background: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    }
+    .checkout-title {
+      font-family: "Georgia", serif;
+      font-size: 2rem;
+      margin-bottom: 30px;
+      color: #1a1510;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      color: #888;
+    }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: #c6a75e;
+      box-shadow: 0 0 0 4px rgba(198, 167, 94, 0.1);
+    }
+    .order-summary-card {
+      background: #1a1510;
+      color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      height: fit-content;
+      position: sticky;
+      top: 100px;
+    }
+    .summary-title {
+      font-family: "Georgia", serif;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      padding-bottom: 15px;
+    }
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+    }
+    .summary-total {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #c6a75e;
+    }
+    .whatsapp-notice {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+      margin-top: 15px;
+      text-align: center;
+      display: block;
+    }
+    .order-now-btn {
+      width: 100%;
+      background: #c6a75e;
+      color: #1a1510;
+      border: none;
+      padding: 18px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 25px;
+      transition: all 0.3s ease;
+    }
+    .order-now-btn:hover {
+      background: #d4b878;
+      transform: translateY(-2px);
+    }
+    .cart-items-preview {
+      margin-bottom: 20px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .preview-item {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+      align-items: center;
+    }
+    .preview-img {
+      width: 50px;
+      height: 50px;
+      background: #fff;
+      border-radius: 4px;
+      object-fit: cover;
+    }
+    .preview-info h4 {
+      font-size: 0.9rem;
+      margin: 0;
+    }
+    .preview-info p {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.6);
+      margin: 2px 0 0;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav dark-nav">
+  <div class="nav-logo" style="cursor:pointer" onclick="window.location.href='index.html'">A<span>r</span>oma</div>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="nav-actions">
+    <button class="nav-icon" id="cartIcon" title="Cart">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span class="cart-badge"></span>
+    </button>
+  </div>
+</nav>
+
+<main class="checkout-section">
+  <div class="checkout-container">
+    <div class="checkout-form-card">
+      <h2 class="checkout-title">Delivery Details</h2>
+      <form id="checkoutForm">
+        <div class="form-group">
+          <label for="fullName">Full Name</label>
+          <input type="text" id="fullName" placeholder="John Doe" required>
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone Number</label>
+          <input type="tel" id="phone" placeholder="077 123 4567" required>
+        </div>
+        <div class="form-group">
+          <label for="address">Delivery Address</label>
+          <textarea id="address" rows="3" placeholder="Street address, apartment, suite, etc." required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="city">City / District</label>
+          <input type="text" id="city" placeholder="Colombo" required>
+        </div>
+        <div class="form-group">
+          <label for="notes">Order Notes (Optional)</label>
+          <textarea id="notes" rows="2" placeholder="Notes about your order, e.g. special delivery instructions."></textarea>
+        </div>
+      </form>
+    </div>
+
+    <div class="order-summary-card">
+      <h3 class="summary-title">Order Summary</h3>
+      <div id="checkoutItems" class="cart-items-preview">
+        <!-- JS Populated -->
+      </div>
+      <div class="summary-item">
+        <span>Subtotal</span>
+        <span id="summarySubtotal">$0.00</span>
+      </div>
+      <div class="summary-item">
+        <span>Shipping</span>
+        <span id="summaryShipping">Calculated at WhatsApp</span>
+      </div>
+      <div class="summary-total">
+        <span>Total</span>
+        <span id="summaryTotal">$0.00</span>
+      </div>
+      
+      <button type="submit" form="checkoutForm" class="order-now-btn">Order Now</button>
+      <span class="whatsapp-notice">this will redirect u to whatsapp</span>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p>© 2024 Aroma Luxury Perfume House. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+  // Specific logic for checkout page
+  document.addEventListener('DOMContentLoaded', () => {
+    renderCheckoutSummary();
+    
+    document.getElementById('checkoutForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      handleOrderSubmission();
+    });
+  });
+
+  function renderCheckoutSummary() {
+    const itemsContainer = document.getElementById('checkoutItems');
+    const subtotalEl = document.getElementById('summarySubtotal');
+    const totalEl = document.getElementById('summaryTotal');
+    
+    if (!itemsContainer) return;
+    
+    const cart = getCart();
+    if (cart.length === 0) {
+      window.location.href = 'shop.html';
+      return;
+    }
+    
+    let total = 0;
+    itemsContainer.innerHTML = cart.map(item => {
+      const p = products.find(p => p.id === item.id);
+      if (!p) return '';
+      const itemTotal = p.price * item.qty;
+      total += itemTotal;
+      return `
+        <div class="preview-item">
+          <img src="${p.image}" class="preview-img" alt="${p.name}">
+          <div class="preview-info">
+            <h4>${p.name}</h4>
+            <p>${item.qty} x $${p.price.toFixed(2)}</p>
+          </div>
+          <div style="margin-left: auto; font-weight: 500;">$${itemTotal.toFixed(2)}</div>
+        </div>
+      `;
+    }).join('');
+    
+    subtotalEl.textContent = '$' + total.toFixed(2);
+    totalEl.textContent = '$' + total.toFixed(2);
+  }
+
+  function handleOrderSubmission() {
+    const name = document.getElementById('fullName').value;
+    const phone = document.getElementById('phone').value;
+    const address = document.getElementById('address').value;
+    const city = document.getElementById('city').value;
+    const notes = document.getElementById('notes').value;
+    
+    const cart = getCart();
+    let orderDetails = cart.map(item => {
+      const p = products.find(p => p.id === item.id);
+      return `- ${p.name} (x${item.qty}): $${(p.price * item.qty).toFixed(2)}`;
+    }).join('\n');
+    
+    const total = getCartTotal().toFixed(2);
+    
+    const message = `*New Order from Aroma Website*\n\n` +
+                    `*Order Details:*\n${orderDetails}\n` +
+                    `*Total:* $${total}\n\n` +
+                    `*Customer Details:*\n` +
+                    `Name: ${name}\n` +
+                    `Phone: ${phone}\n` +
+                    `Address: ${address}\n` +
+                    `City: ${city}\n` +
+                    (notes ? `Notes: ${notes}\n` : '') +
+                    `\nPlease confirm my order.`;
+    
+    const whatsappUrl = `https://wa.me/94778502118?text=${encodeURIComponent(message)}`;
+    
+    window.open(whatsappUrl, '_blank');
+  }
+</script>
+</body>
+</html>
