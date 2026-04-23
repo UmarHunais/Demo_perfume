@@ -672,9 +672,25 @@ function initContact() {
     e.preventDefault();
     const name = document.getElementById('cName').value.trim();
     const email = document.getElementById('cEmail').value.trim();
+    const phone = document.getElementById('cPhone').value.trim();
+    const subject = document.getElementById('cSubject').value;
     const msg = document.getElementById('cMessage').value.trim();
-    if (!name || !email || !msg) { showToast('Please fill all fields'); return; }
+    
+    if (!name || !email || !msg) { showToast('Please fill all required fields'); return; }
     if (!/^\S+@\S+\.\S+$/.test(email)) { showToast('Please enter a valid email'); return; }
+    
+    const message = `*New Enquiry from Aroma Website*\n\n` +
+                    `*Name:* ${name}\n` +
+                    `*Email:* ${email}\n` +
+                    (phone ? `*Phone:* ${phone}\n` : '') +
+                    (subject ? `*Subject:* ${subject}\n` : '') +
+                    `\n*Message:*\n${msg}`;
+    
+    const whatsappUrl = `https://wa.me/94778502118?text=${encodeURIComponent(message)}`;
+    
+    window.open(whatsappUrl, '_blank');
+    
+    // Optionally show success state too
     form.style.display = 'none';
     document.getElementById('formSuccess').classList.add('show');
   });
@@ -700,7 +716,7 @@ function injectCartDrawer() {
           <span class="cart-total-label">Total</span>
           <span class="cart-total-val" id="cartTotal">$0.00</span>
         </div>
-        <button class="cart-checkout-btn">Proceed to Checkout →</button>
+        <button class="cart-checkout-btn" onclick="window.location.href='checkout.html'">Proceed to Checkout →</button>
       </div>
     </div>`);
 }
